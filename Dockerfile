@@ -1,11 +1,13 @@
 # Use a minimal base image
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 # Set the working directory
 WORKDIR /usr/local/bin
 
-# Install curl to download the binary
-RUN apt-get update && apt-get install -y curl && apt-get clean
+# Install required libraries including OpenSSL
+RUN apt-get update && \
+    apt-get install -y curl libssl3 && \
+    apt-get clean
 
 # Download the precompiled binary
 RUN curl -L -o straico-proxy https://github.com/ricardokl/straico-client/releases/download/master/straico-proxy-linux
