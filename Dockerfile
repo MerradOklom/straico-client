@@ -19,4 +19,4 @@ RUN chmod +x ./straico-proxy
 EXPOSE 8000
 
 # Command to run the application
-CMD ["./straico-proxy"]
+CMD ["./straico-proxy","--host","8000"]
