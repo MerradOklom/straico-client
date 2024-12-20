@@ -1,23 +1,17 @@
-# Use the official Rust image as the builder
-FROM rust:latest as builder
-
-# Set the working directory
-WORKDIR /usr/src/straico-client
-
-# Copy the entire project to the container
-COPY . .
-
-# Build the application
-RUN cargo build --release
-
-# Use a smaller image for the final stage
+# Use a minimal base image
 FROM debian:buster-slim
 
 # Set the working directory
 WORKDIR /usr/local/bin
 
-# Copy the compiled binary from the builder stage
-COPY --from=builder /usr/src/straico-client/target/release/straico-proxy .
+# Install curl to download the binary
+RUN apt-get update && apt-get install -y curl && apt-get clean
+
+# Download the precompiled binary
+RUN curl -L -o straico-proxy https://github.com/ricardokl/straico-client/releases/download/master/straico-proxy-linux
+
+# Make the binary executable
+RUN chmod +x ./straico-proxy
 
 # Expose the port the app runs on
 EXPOSE 8000
