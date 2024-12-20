@@ -19,9 +19,6 @@ WORKDIR /usr/local/bin
 # Copy the compiled binary from the builder stage
 COPY --from=builder /usr/src/straico-client/target/release/straico-proxy .
 
-# Set environment variable for the API key
-ENV STRAICO_API_KEY=your_api_key_here
-
 # Expose the port the app runs on
 EXPOSE 8000
 
