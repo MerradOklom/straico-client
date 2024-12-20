@@ -1,5 +1,5 @@
-# Use a minimal base image
-FROM debian:bullseye-slim
+# Use Ubuntu as the base image
+FROM ubuntu:22.04
 
 # Set the working directory
 WORKDIR /usr/local/bin
